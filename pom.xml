@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.mvadeyar</groupId>
 	<artifactId>matrix-challenge</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>matrix</name>
-	<description>Application that performs matrix functions</description>
+	<version>1.0.0</version>
+	<name>MatrixChallenge</name>
+	<description>Application that performs matrix operations</description>
 	<url/>
 	<licenses>
 		<license/>
