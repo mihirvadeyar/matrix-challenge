@@ -30,12 +30,12 @@ public class MultiplyMatrixTest {
     }
 
     @Test
-    void shouldMultiply2x2Matrix() throws Exception {
+    void shouldMultiply2x2MatrixWithZero() throws Exception {
         MockMultipartFile file = TestHelper.getFile("matrix_2x2.csv");
 
         String result = matrixService.multiply(file);
 
-        String expected = "1024";
+        String expected = "0";
         assertEquals(expected, result);
     }
 

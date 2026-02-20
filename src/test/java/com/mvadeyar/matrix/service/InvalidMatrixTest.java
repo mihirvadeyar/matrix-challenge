@@ -63,6 +63,15 @@ class InvalidMatrixTest {
         }
     }
 
+    @Test
+    void shouldThrowForInvalidTypeMatrix() throws Exception {
+        MockMultipartFile file = TestHelper.getFile("matrix_invalidType.txt");
+
+        for (ThrowingFunction<MultipartFile, String, InvalidMatrixException> op : operations) {
+            assertThrows(InvalidMatrixException.class, () -> op.apply(file));
+        }
+    }
+
 }
 
 
