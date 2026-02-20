@@ -14,7 +14,7 @@ Supports **echo, invert, flatten, sum, and multiply** operations with robust val
 
 - **Validation**
   - Rejects non-square matrices.
-  - Rejects empty rows, inconsistent columns, or non-numeric values.
+  - Rejects empty rows, inconsistent columns, non-numeric values (including blank/empty values).
   - Detects overflow during sum or multiplication.
   - Rejects unsupported file types.
 
@@ -27,7 +27,8 @@ Supports **echo, invert, flatten, sum, and multiply** operations with robust val
 ## Assumptions
 
 - Input matrices are **square** (rows = columns).  
-- Elements are **integers only**.  
+- Elements are **integers only**.
+- Trailing and leading spaces are ignored.
 - Overflow in sum or product triggers `InvalidMatrixException`.  
 - Input files are **CSV** (other formats can be added via the parser interface).  
 - Focus is on **backend logic**, no frontend included.
@@ -81,7 +82,6 @@ Supports **echo, invert, flatten, sum, and multiply** operations with robust val
 
 ```bash
 git clone https://github.com/mihirvadeyar/matrix-challenge.git
-cd matrix-challenge
 ```
 
 
