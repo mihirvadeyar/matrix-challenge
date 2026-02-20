@@ -37,8 +37,9 @@ Supports **echo, invert, flatten, sum, and multiply** operations with robust val
 ## Design & Implementation Choices
 
 1. **Parser Interface & Factory**
-   - `MatrixParser` interface allows multiple formats (CSV, TSV, etc.).
+   - `MatrixParser` interface allows multiple formats (CSV, TSV, etc.). Currently only supports CSV files using `CsvMatrixParser`, but new parsers can be added as required.
    - `MatrixParserFactory` provides the parser dynamically based on file extension.
+   
 
 2. **Service Layer**
    - `MatrixService` implements all operations.
