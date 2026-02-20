@@ -136,15 +136,47 @@ The project includes dedicated test classes for each operation:
 
 ### Test CSV Files
 
-Place the following CSV files under `src/test/resources` for the unit tests:
+Make sure you have the following CSV files under `src/test/resources` for the unit tests:
 
 - `matrix_3x3.csv`
 - `matrix_4x4.csv`
 - `matrix_1x1.csv`
+- `matrix_2x2.csv`
+- `matrix_5x5.csv`
 - `matrix_3x3_negativeNumbers.csv`
 - `matrix_2x2_largeNumbers.csv`
+- `matrix_2x2_largeNegativeNumbers.csv`
 - `matrix_empty.csv`
 - `matrix_inconsistent.csv`
 - `matrix_non_numeric.csv`
 - `matrix_2x3.csv` (non-square)
+- `matrix_4x1.csv` (non-square)
 - `matrix_invalidType.txt` (unsupported file)
+
+## Future Scope & Improvements
+
+This project is designed to be simple, readable, and robust, but there are several directions for future enhancement:
+
+- **Separation of Parsing and Validation**  
+  - Currently, `CsvMatrixParser` performs basic validations while parsing.  
+  - Future improvement: separate concerns into a dedicated `MatrixValidator` to handle:  
+    - Empty matrices  
+    - Non-numeric values  
+    - Inconsistent columns  
+    - Square matrix validation  
+  - This would make parsers strictly responsible for parsing, improving reusability.
+
+- **Extending to Multiple File Types**  
+  - Currently, only CSV files are supported.  
+  - Additional parsers (e.g., TSV, JSON, Excel) can be added by implementing `MatrixParser` and registering them in `MatrixParserFactory`.  
+  - The controller can dynamically select the parser based on file extension or content type.
+
+- **Custom Validation Rules**  
+  - Validation could be configurable based on use case, e.g., allowing rectangular matrices, different numeric types, or matrix size limits.
+
+- **Enhanced Error Reporting**  
+  - Provide detailed error messages pointing to exact rows/columns of issues.  
+  - Include helpful guidance for fixing invalid input files.
+
+- **Performance and Scalability**  
+  - For very large matrices, consider streaming processing or optimized numeric libraries to reduce memory usage and handle integer overflow more efficiently.
