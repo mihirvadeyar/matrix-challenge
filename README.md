@@ -72,7 +72,7 @@ Supports **echo, invert, flatten, sum, and multiply** operations with robust val
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/yourusername/matrix-challenge.git
+git clone https://github.com/mihirvadeyar/matrix-challenge.git
 cd matrix-challenge
 ```
 
