@@ -6,12 +6,19 @@ import org.springframework.mock.web.MockMultipartFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit tests for the "echo" operation of MatrixService.
+
+ * Verifies that matrices of different sizes and values are returned exactly as input.
+ * Invalid input tests are handled separately in another test class.
+ */
 class EchoMatrixTest {
 
     private MatrixService matrixService;
 
     @BeforeEach
     void setup() {
+        // Initialize service with helper (sets up parser factory, etc.)
         matrixService = TestHelper.createMatrixService();
     }
 

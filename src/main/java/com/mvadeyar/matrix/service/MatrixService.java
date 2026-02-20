@@ -15,23 +15,37 @@ public class MatrixService {
 
     private final MatrixParserFactory parserFactory;
 
+    /**
+     * Service responsible for all matrix operations.
+     * Delegates parsing to a format-specific parser via the factory.
+     */
     public MatrixService(MatrixParserFactory parserFactory) {
         this.parserFactory = parserFactory;
     }
 
+    /**
+     * Extracts the file extension from the filename.
+     * Returns empty string if no extension is present.
+     */
     public static String getFileExtension(String filename) {
         if (filename == null || !filename.contains(".")) {
-            return ""; // no extension
+            return "";
         }
         return filename.substring(filename.lastIndexOf('.') + 1).toUpperCase();
     }
 
+    /**
+     * Determines the correct parser based on file extension.
+     */
     private MatrixParser getParserForFile(MultipartFile file) throws InvalidMatrixException {
         String filename = file.getOriginalFilename();
-        String fileType = getFileExtension(filename); // CSV, TSV, etc.
+        String fileType = getFileExtension(filename);
         return parserFactory.getParser(fileType);
     }
 
+    /**
+     * Ensures the matrix is square (rows = columns).
+     */
     private void validateSquareMatrix(List<List<Integer>> matrix)
             throws InvalidMatrixException {
 
@@ -46,6 +60,10 @@ public class MatrixService {
         }
     }
 
+    /**
+     * Parses the file and validates matrix structure in one place.
+     * Keeps other methods clean and consistent.
+     */
     private List<List<Integer>> parseAndValidateMatrix(MultipartFile file)
             throws InvalidMatrixException {
 
@@ -55,36 +73,42 @@ public class MatrixService {
         return matrix;
     }
 
-
-    public String echo(MultipartFile file) throws InvalidMatrixException{
-
+    /**
+     * Returns matrix exactly as provided, formatted.
+     */
+    public String echo(MultipartFile file) throws InvalidMatrixException {
         List<List<Integer>> matrix = parseAndValidateMatrix(file);
         return format(matrix);
     }
 
+    /**
+     * Formats a matrix into comma-separated rows.
+     */
     private String format(List<List<Integer>> matrix) {
-        String formattedMatrix = matrix.stream()
+        return matrix.stream()
                 .map(row -> row.stream()
-                        .map(String::valueOf)      // convert each integer to string
-                        .collect(Collectors.joining(",")) // join columns with comma
-                )
-                .collect(Collectors.joining("\n")); // join rows with newline
-        System.out.println(formattedMatrix);
-        return formattedMatrix;
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(",")))
+                .collect(Collectors.joining("\n"));
     }
 
-    public String invert(MultipartFile file) throws InvalidMatrixException{
-
+    /**
+     * Returns the inverted (transposed) matrix.
+     */
+    public String invert(MultipartFile file) throws InvalidMatrixException {
         List<List<Integer>> matrix = parseAndValidateMatrix(file);
-
         return format(invertMatrix(matrix));
     }
 
+    /**
+     * Inverts or Transposes the matrix (rows become columns).
+     */
     private List<List<Integer>> invertMatrix(List<List<Integer>> matrix) {
         int rowCount = matrix.size();
         int colCount = matrix.get(0).size();
 
         List<List<Integer>> result = new ArrayList<>();
+
         for (int col = 0; col < colCount; col++) {
             List<Integer> newRow = new ArrayList<>();
             for (int row = 0; row < rowCount; row++) {
@@ -96,17 +120,23 @@ public class MatrixService {
         return result;
     }
 
-    public String flatten(MultipartFile file) throws InvalidMatrixException{
-
+    /**
+     * Flattens the matrix into a single comma-separated line.
+     */
+    public String flatten(MultipartFile file) throws InvalidMatrixException {
         List<List<Integer>> matrix = parseAndValidateMatrix(file);
 
         return matrix.stream()
-                .flatMap(List::stream)        // flatten rows into one stream
+                .flatMap(List::stream)
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
     }
 
-    public String sum(MultipartFile file) throws InvalidMatrixException{
+    /**
+     * Returns the sum of all matrix elements.
+     * Detects integer overflow explicitly.
+     */
+    public String sum(MultipartFile file) throws InvalidMatrixException {
 
         List<List<Integer>> matrix = parseAndValidateMatrix(file);
 
@@ -127,7 +157,11 @@ public class MatrixService {
         return String.valueOf((int) sum);
     }
 
-    public String multiply(MultipartFile file) throws InvalidMatrixException{
+    /**
+     * Returns the product of all matrix elements.
+     * Detects integer overflow explicitly.
+     */
+    public String multiply(MultipartFile file) throws InvalidMatrixException {
 
         List<List<Integer>> matrix = parseAndValidateMatrix(file);
 
@@ -147,5 +181,4 @@ public class MatrixService {
 
         return String.valueOf((int) product);
     }
-
 }

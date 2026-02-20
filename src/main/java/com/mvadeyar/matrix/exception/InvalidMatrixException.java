@@ -1,6 +1,9 @@
 package com.mvadeyar.matrix.exception;
 
-// Custom exception for invalid matrix operations
+/**
+ * Custom exception for invalid matrix input or operations
+ */
+
 public class InvalidMatrixException extends Exception {
 
     // Default constructor

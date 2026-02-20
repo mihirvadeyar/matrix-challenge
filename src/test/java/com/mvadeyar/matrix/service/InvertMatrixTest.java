@@ -6,12 +6,20 @@ import org.springframework.mock.web.MockMultipartFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit tests for the "invert" (transpose) operation of MatrixService.
+
+ * Verifies that square matrices of various sizes and values are correctly
+ * transposed (rows become columns) while preserving values.
+ * Invalid input tests are handled separately in another test class.
+ */
 class InvertMatrixTest {
 
     private MatrixService matrixService;
 
     @BeforeEach
     void setup() {
+        // Initialize service with parser factory and helpers
         matrixService = TestHelper.createMatrixService();
     }
 

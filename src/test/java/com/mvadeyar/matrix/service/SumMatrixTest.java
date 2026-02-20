@@ -8,12 +8,20 @@ import org.springframework.mock.web.MockMultipartFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Unit tests for the "sum" operation of MatrixService.
+
+ * Verifies that the sum of all matrix elements is calculated correctly for
+ * various sizes and values, including negative numbers. Also tests overflow
+ * scenarios that should throw an InvalidMatrixException.
+ */
 public class SumMatrixTest {
 
     private MatrixService matrixService;
 
     @BeforeEach
     void setup() {
+        // Initialize service with parser factory and helpers
         matrixService = TestHelper.createMatrixService();
     }
 
@@ -44,22 +52,25 @@ public class SumMatrixTest {
 
         String result = matrixService.sum(file);
 
+        // Negative numbers are summed correctly
         assertEquals("-45", result);
     }
 
     // -----------------------------------------Invalid Cases-----------------------------------------
 
     @Test
-    void shouldThrowFor2x2largeNumbersMatrix() throws Exception {
+    void shouldThrowFor2x2LargeNumbersMatrix() throws Exception {
         MockMultipartFile file = TestHelper.getFile("matrix_2x2_largeNumbers.csv");
 
+        // Sum exceeds Integer.MAX_VALUE → overflow exception
         assertThrows(InvalidMatrixException.class, () -> matrixService.sum(file));
     }
 
     @Test
-    void shouldThrowFor2x2largeNegativeNumbersMatrix() throws Exception {
+    void shouldThrowFor2x2LargeNegativeNumbersMatrix() throws Exception {
         MockMultipartFile file = TestHelper.getFile("matrix_2x2_largeNegativeNumbers.csv");
 
+        // Sum exceeds Integer.MIN_VALUE → overflow exception
         assertThrows(InvalidMatrixException.class, () -> matrixService.sum(file));
     }
 
