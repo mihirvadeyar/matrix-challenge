@@ -27,7 +27,7 @@ public class MatrixService {
      * Extracts the file extension from the filename.
      * Returns empty string if no extension is present.
      */
-    public static String getFileExtension(String filename) {
+    private static String getFileExtension(String filename) {
         if (filename == null || !filename.contains(".")) {
             return "";
         }
