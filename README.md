@@ -69,6 +69,13 @@ Supports **echo, invert, flatten, sum, and multiply** operations with robust val
 
 ## Setup & Running
 
+1. **Download the project archive**
+
+   - Download the provided `matrix-challenge.zip` file from the shared link.
+   - Extract it to a local folder.
+ 
+**OR**
+
 1. **Clone the repository**
 
 ```bash
@@ -76,15 +83,22 @@ git clone https://github.com/mihirvadeyar/matrix-challenge.git
 cd matrix-challenge
 ```
 
+
 2. **Build the project**
 ```bash
+cd matrix-challenge
 mvn clean install
 ```
 
-3. Run the Application
+3. **Run the Application**
 ```bash
 mvn spring-boot:run
 ```
+
+4. **Access the APIs**
+
+  - The application will start on http://localhost:8080.
+  - Use the API endpoints (see API Endpoints section below) by uploading CSV files as described.
 
 ### **API Endpoints**
 
